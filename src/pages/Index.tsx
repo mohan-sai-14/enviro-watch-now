@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AirQualityCard from "@/components/AirQualityCard";
@@ -15,16 +14,15 @@ import { Bell, Droplets, Wind } from "lucide-react";
 const Index = () => {
   const [selectedRole, setSelectedRole] = useState("public");
   
-  // Check if role allows access to certain features
   const canView = (feature: string) => {
     return userRoles[selectedRole as keyof typeof userRoles].canView.includes(feature);
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-[1400px] mx-auto">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-env-air to-env-water bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-env-air to-env-water bg-clip-text text-transparent">
             Environmental Dashboard
           </h1>
           <p className="text-muted-foreground mt-1">
@@ -34,8 +32,8 @@ const Index = () => {
         <RoleSelector selectedRole={selectedRole} onRoleChange={setSelectedRole} />
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 space-y-6">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        <div className="xl:col-span-3 space-y-6">
           <Card className="overflow-hidden border-none shadow-md bg-gradient-to-br from-background to-secondary/30">
             <CardContent className="p-0">
               <Tabs defaultValue="air-quality" className="w-full">
@@ -120,14 +118,14 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="lg:col-span-1">
-          {canView("recommendations") && (
+        {canView("recommendations") && (
+          <div className="xl:col-span-1">
             <div className="sticky top-20">
               <h2 className="text-2xl font-bold mb-4">Recommendations</h2>
               <RecommendationsPanel userRole={selectedRole} />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

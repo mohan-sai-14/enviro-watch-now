@@ -17,9 +17,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   ];
   
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b py-4 px-6">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <header className="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b py-4">
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center">
             <div className="mr-2 rounded-full bg-gradient-to-br from-env-water to-env-air w-10 h-10 flex items-center justify-center">
               <div className="text-primary-foreground font-bold">E</div>
@@ -46,19 +46,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </nav>
           
           <div className="flex items-center gap-4">
-            <div className="text-sm text-muted-foreground bg-muted py-1 px-3 rounded-full">
+            <div className="text-sm text-muted-foreground bg-white/50 dark:bg-slate-800/50 py-1 px-3 rounded-full border">
               Last updated: {new Date().toLocaleTimeString()}
             </div>
           </div>
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto p-6">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
       
-      <footer className="border-t py-8 px-6 mt-12 bg-muted/30">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <footer className="border-t py-8 mt-12 bg-white/50 dark:bg-slate-900/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="font-semibold mb-4">EnviroWatch Now</h3>
             <p className="text-sm text-muted-foreground">

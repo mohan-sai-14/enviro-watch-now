@@ -31,12 +31,15 @@ const RoleSelector: React.FC<RoleSelectorProps> = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="w-full md:w-auto flex justify-between items-center">
+        <Button 
+          variant="outline" 
+          className="w-full md:w-auto flex justify-between items-center bg-white/50 dark:bg-slate-800/50 border-2 hover:bg-white/80 dark:hover:bg-slate-800/80"
+        >
           <span>View as: {roleLabels[selectedRole]}</span>
           <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
+      <DropdownMenuContent className="w-56 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm" align="end">
         {roleOptions.map((role) => (
           <DropdownMenuItem
             key={role}
