@@ -1,13 +1,12 @@
-
-import React, { useState } from "react";
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AirQualityCard from "@/components/AirQualityCard";
 import WaterQualityCard from "@/components/WaterQualityCard";
 import SensorMap from "@/components/SensorMap";
 import AlertsPanel from "@/components/AlertsPanel";
-import UserRoleSelector from "@/components/UserRoleSelector";
 import RecommendationsPanel from "@/components/RecommendationsPanel";
 import { userRoles } from "@/services/sensorDataService";
+import { useState } from "react";
 
 const Index = () => {
   const [selectedRole, setSelectedRole] = useState("public");
@@ -84,43 +83,6 @@ const Index = () => {
               <RecommendationsPanel userRole={selectedRole} />
             </div>
           )}
-        </div>
-        
-        <div className="lg:col-span-1">
-          <div className="lg:sticky lg:top-24">
-            <UserRoleSelector
-              selectedRole={selectedRole}
-              onChange={setSelectedRole}
-            />
-            
-            <div className="mt-6">
-              <h3 className="font-medium mb-2">Information Disclosure</h3>
-              <p className="text-sm text-muted-foreground mb-6">
-                This dashboard shows simulated environmental data for 
-                educational and demonstration purposes only.
-              </p>
-              
-              <h3 className="font-medium mb-2">Legend</h3>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-env-good mr-2"></div>
-                  <span className="text-sm">Good - Minimal or no risk</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-env-moderate mr-2"></div>
-                  <span className="text-sm">Moderate - Moderate health concern</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-env-poor mr-2"></div>
-                  <span className="text-sm">Poor - Unhealthy for sensitive groups</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-env-harmful mr-2"></div>
-                  <span className="text-sm">Harmful - Health warnings, everyone may be affected</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
