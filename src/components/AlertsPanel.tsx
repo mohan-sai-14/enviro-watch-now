@@ -57,8 +57,8 @@ const AlertsPanel = () => {
   };
   
   return (
-    <Card className="h-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <Card className="h-full overflow-hidden border-none shadow-md bg-gradient-to-br from-background to-secondary/30">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b">
         <div>
           <CardTitle>Alerts & Notifications</CardTitle>
           <CardDescription>
@@ -66,22 +66,22 @@ const AlertsPanel = () => {
           </CardDescription>
         </div>
         {activeAlerts.length > 0 && (
-          <Button variant="outline" size="sm" onClick={clearAllAlerts}>
+          <Button variant="outline" size="sm" onClick={clearAllAlerts} className="whitespace-nowrap">
             Clear All
           </Button>
         )}
       </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[400px] pr-4">
+      <CardContent className="p-0">
+        <ScrollArea className="h-[400px]">
           {activeAlerts.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-2 p-4">
               {activeAlerts.map((alert) => (
                 <div 
                   key={alert.id} 
-                  className={`p-4 border rounded-lg ${
-                    alert.severity === "high" ? "border-env-harmful bg-env-harmful/10" : 
-                    alert.severity === "medium" ? "border-env-poor bg-env-poor/10" : 
-                    "border-env-moderate bg-env-moderate/10"
+                  className={`p-4 rounded-lg transition-all hover:shadow-md ${
+                    alert.severity === "high" ? "bg-env-harmful/10 border border-env-harmful/20" : 
+                    alert.severity === "medium" ? "bg-env-poor/10 border border-env-poor/20" : 
+                    "bg-env-moderate/10 border border-env-moderate/20"
                   }`}
                 >
                   <div className="flex justify-between items-start gap-2">
@@ -112,10 +112,12 @@ const AlertsPanel = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-[360px] text-muted-foreground">
-              <Bell className="h-12 w-12 mb-4 opacity-20" />
-              <p>No active alerts</p>
-              <p className="text-sm">All environmental parameters are within acceptable ranges</p>
+            <div className="flex flex-col items-center justify-center h-[360px] text-muted-foreground p-6">
+              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
+                <Bell className="h-8 w-8 opacity-30" />
+              </div>
+              <p className="font-medium">No active alerts</p>
+              <p className="text-sm text-center mt-1">All environmental parameters are within acceptable ranges</p>
             </div>
           )}
         </ScrollArea>

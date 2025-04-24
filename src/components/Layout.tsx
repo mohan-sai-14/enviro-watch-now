@@ -2,6 +2,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { Home, Info } from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,19 +12,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   
   const navItems = [
-    { name: "Dashboard", path: "/" },
-    { name: "About", path: "/about" },
+    { name: "Dashboard", path: "/", icon: Home },
+    { name: "About", path: "/about", icon: Info },
   ];
   
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 bg-background border-b py-4 px-6">
+      <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b py-4 px-6">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center">
-            <div className="mr-2 rounded-full bg-primary w-8 h-8 flex items-center justify-center">
+            <div className="mr-2 rounded-full bg-gradient-to-br from-env-water to-env-air w-10 h-10 flex items-center justify-center">
               <div className="text-primary-foreground font-bold">E</div>
             </div>
-            <h1 className="text-xl font-bold">EnviroWatch Now</h1>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-env-water to-env-air bg-clip-text text-transparent">EnviroWatch Now</h1>
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
@@ -32,19 +33,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
+                  "text-sm font-medium transition-colors hover:text-primary flex items-center gap-2 py-2 px-3 rounded-md",
                   location.pathname === item.path
-                    ? "text-foreground"
+                    ? "text-foreground bg-accent"
                     : "text-muted-foreground"
                 )}
               >
+                <item.icon className="h-4 w-4" />
                 {item.name}
               </Link>
             ))}
           </nav>
           
           <div className="flex items-center gap-4">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground bg-muted py-1 px-3 rounded-full">
               Last updated: {new Date().toLocaleTimeString()}
             </div>
           </div>
@@ -55,10 +57,31 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children}
       </main>
       
-      <footer className="border-t py-6 px-6 mt-12">
-        <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
-          <p>EnviroWatch Now - Real-time Environmental Monitoring Dashboard</p>
-          <p className="mt-1">Created for demonstration purposes. Data is simulated.</p>
+      <footer className="border-t py-8 px-6 mt-12 bg-muted/30">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 className="font-semibold mb-4">EnviroWatch Now</h3>
+            <p className="text-sm text-muted-foreground">
+              Real-time Environmental Monitoring Dashboard for air and water quality analysis.
+            </p>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold mb-4">Resources</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href="#" className="hover:text-primary">Documentation</a></li>
+              <li><a href="#" className="hover:text-primary">API Reference</a></li>
+              <li><a href="#" className="hover:text-primary">Sensor Network</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold mb-4">Legal</h3>
+            <p className="text-sm text-muted-foreground">
+              Created for demonstration purposes.<br/>
+              All data is simulated and does not represent actual environmental conditions.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

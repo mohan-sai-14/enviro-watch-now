@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Progress } from "@/components/ui/progress";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentSensorData, thresholds } from "@/services/sensorDataService";
+import { AlertTriangle, CheckCircle, HelpCircle, XCircle } from "lucide-react";
 
 type AirQualityProps = {
   pollutant: "pm25" | "co2" | "no2";
@@ -24,14 +25,22 @@ const AirQualityCard: React.FC<AirQualityProps> = ({
 
   if (!data) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
+      <Card className="overflow-hidden border border-dashed animate-pulse">
+        <CardHeader className="pb-2">
+          <CardTitle className="flex justify-between items-center">
+            <span>{title}</span>
+            <div className="h-6 w-16 bg-muted rounded"></div>
+          </CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center h-40">
-            <p>Loading data...</p>
+          <div className="mb-6">
+            <div className="h-2 bg-muted rounded w-full"></div>
+          </div>
+          <div className="flex justify-between text-sm mt-4 text-muted-foreground">
+            <span>Low</span>
+            <span>Moderate</span>
+            <span>High</span>
           </div>
         </CardContent>
       </Card>
@@ -48,30 +57,42 @@ const AirQualityCard: React.FC<AirQualityProps> = ({
   
   // Determine color based on status
   let statusColor = "";
+  let StatusIcon = HelpCircle;
+  let gradientClass = "";
+  
   switch (status) {
     case "good":
       statusColor = "bg-env-good";
+      StatusIcon = CheckCircle;
+      gradientClass = "from-env-good/20 to-env-good/5";
       break;
     case "moderate":
       statusColor = "bg-env-moderate";
+      StatusIcon = HelpCircle;
+      gradientClass = "from-env-moderate/20 to-env-moderate/5";
       break;
     case "poor":
       statusColor = "bg-env-poor";
+      StatusIcon = AlertTriangle;
+      gradientClass = "from-env-poor/20 to-env-poor/5";
       break;
     case "harmful":
       statusColor = "bg-env-harmful";
+      StatusIcon = XCircle;
+      gradientClass = "from-env-harmful/20 to-env-harmful/5";
       break;
     default:
       statusColor = "bg-gray-400";
+      gradientClass = "from-gray-200 to-gray-100";
   }
 
   return (
-    <Card className="h-full">
-      <CardHeader>
+    <Card className={`h-full overflow-hidden bg-gradient-to-br ${gradientClass} transition-all hover:shadow-md`}>
+      <CardHeader className="pb-2">
         <CardTitle className="flex justify-between items-center">
           <span>{title}</span>
           <span className="text-xl font-bold">
-            {value} {unit}
+            {value} <span className="text-sm font-normal">{unit}</span>
           </span>
         </CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -80,16 +101,21 @@ const AirQualityCard: React.FC<AirQualityProps> = ({
         <div className="mb-6">
           <Progress value={progressValue} className={`h-2 ${statusColor}`} />
         </div>
-        <div className="flex justify-between text-sm mt-4">
+        <div className="flex justify-between text-sm mt-4 text-muted-foreground">
           <span>Low</span>
           <span>Moderate</span>
           <span>High</span>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pt-2 pb-4">
         <div className="w-full">
           <div className="flex items-center">
-            <div className={`w-3 h-3 rounded-full mr-2 ${statusColor}`}></div>
+            <StatusIcon className={`h-5 w-5 mr-2 ${
+              status === "good" ? "text-env-good" :
+              status === "moderate" ? "text-env-moderate" :
+              status === "poor" ? "text-env-poor" :
+              "text-env-harmful"
+            }`} />
             <p className="text-sm capitalize">
               Status: <span className="font-medium">{status}</span>
             </p>
